@@ -1,0 +1,22 @@
+<?php
+error_reporting(E_ERROR | E_PARSE);
+$helper = $this->params()->fromQuery('helper','');
+$log = $this->logger();
+$rs=null;
+$user = $this->identity();
+
+switch ($helper) {
+    case 'items':
+        $rs=[];
+        foreach ($this->params()->fromQuery('ids') as $id) {
+            $rs[]=$this->api()->read('items', $id)->getContent();
+        }
+        echo $this->json($rs);                
+        break;
+}
+
+
+?>
+
+
+
